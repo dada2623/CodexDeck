@@ -53,7 +53,7 @@ Profile Page 1:
 
 | ① | ② | ③ | ④ | ⑤ |
 | --- | --- | --- | --- | --- |
-| 最新对话 1 | 最新对话 2 | 最新对话 3 | 最新对话 4 | 最新对话 5 |
+|  Session 1 |  Session 2 |  Session 3 |  Session 4 |  Session 5 |
 | Accept | Reject | ChatGPT | New Chat | Reasoning |
 | PTT | Send | Profile | Previous Session | Next Session |
 
