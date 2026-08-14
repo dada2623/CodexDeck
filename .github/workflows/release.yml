@@ -71,6 +71,8 @@ jobs:
 
           Zero install: no Node.js, npm, clang or terminal needed. Requires Stream Deck software 7.1+ and a 15-key Stream Deck (MK.2 / Classic). See the [README](https://github.com/dada2623/CodexDeck#readme) for details.
           EOF
+          # The heredoc is quoted ('EOF'), so interpolate the tag explicitly.
+          sed -i "s/\$GITHUB_REF_NAME/$GITHUB_REF_NAME/g" RELEASE_NOTES.md
           gh release create "$GITHUB_REF_NAME" \
             com.codexdeck.streamDeckPlugin \
             com.codexdeck-en.streamDeckPlugin \
