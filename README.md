@@ -20,10 +20,10 @@
 - [Key layout (bundled profile)](#key-layout-bundled-profile)
 - [Key descriptions](#key-descriptions)
 - [Features](#features)
+- [Status colors](#status-colors)
 - [Icons](#icons)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Status colors](#status-colors)
 - [License](#license)
 - [Credits](#credits)
 
@@ -31,7 +31,7 @@
 
 1. Install the prebuilt plugin (zero-install) or build from source — see [Installation](#installation).
 2. Keep the Codex desktop app running and logged in.
-3. Match the keyboard shortcuts in the desktop app (Settings → Keyboard shortcuts): ⌘⌥A approve, ⌘⌥R decline, ⌘⌥S send, ⌘⌥E cycle reasoning effort. (Or rebind them to your own shortcuts.)
+3. Set the keyboard shortcuts in the desktop app (Settings → Keyboard shortcuts) to: ⌘⌥A approve, ⌘⌥R decline, ⌘⌥S send, ⌘⌥E cycle reasoning effort. (Or edit the Profile to rebind them to your preferred shortcuts.)
 4. Done — the five session keys show your latest threads with live status; the command keys handle approve / reject / send / new chat; PTT triggers your own push-to-talk service.
 
 ## What is this?
@@ -88,6 +88,22 @@ Profile Page 1:
 | Chat switching | Switches chats via simulated shortcuts matching the desktop app |
 | Profile switching | Stream Deck built-in action, cycles between profiles |
 
+## Status colors
+
+All breathing states share the same 2.4 s cycle (dim → bright → dim). Each breathing state has a bright base color and a dark flash color:
+
+| Status | Base (bright) | Flash (dark) | Notes |
+| --- | --- | --- | --- |
+| Thinking… | #94C8F8 (148,200,248) | #4A7DA8 | background breathe + dark-blue ring pulse |
+| Unread | #A4E898 (164,232,152) | #7FBF74 | reads the desktop app's real unread state; breathing |
+| Waiting for approval | #F6D2BC (246,210,188) | #D99B74 | breathing |
+| Error | #E86860 (232,104,96) | #B04038 | breathing |
+| Idle | #E4E4E4 (228,228,228) | — | static |
+| Offline | #C9C9C9 | — | static |
+
+- The thinking animation is inspired by the Cortana animation on Windows Phone.
+- The unread state reads the desktop app's own persisted data (`~/.codex/.codex-global-state.json` → `electron-persisted-atom-state.unread-thread-ids-by-host-v1`) — the same source as the official UI's unread badge; it clears once the chat is opened.
+
 ## Icons
 
 All key glyphs come from the **Fluent UI System Icons** Stream Deck icon pack by Carlo Zottmann, built from Microsoft's Fluent UI System Icons:
@@ -132,13 +148,10 @@ npx streamdeck link .
 
 **Language variants.** Two distributable packages ship in the repo root: `com.codexdeck.streamDeckPlugin` (Chinese key faces — 最新对话 / 思考中… / 未读 / 等待确认 / …) and `com.codexdeck-en.streamDeckPlugin` (English — "Session N" / "Thinking…" / "Unread" / "Waiting" / …). Rebuild a variant with `CODEXDECK_LANG=zh|en npm run dist`, then pack it (`npx streamdeck pack`).
 
-### 3. Manual profile import
+### 3. First run: app-server daemon (usually nothing to do)
 
-Import [profiles/Codex Micro.streamDeckProfile](profiles/Codex%20Micro.streamDeckProfile) in the Stream Deck software, then drag actions from the "Codex Deck" category onto keys if the layout does not apply to your device.
-
-### 4. First run: app-server daemon (usually nothing to do)
-
-With the normal desktop-app setup the plugin handles this automatically (see step 1). This step is only for setups without the ChatGPT desktop app, e.g. CLI-only environments: `codex app-server daemon start` requires a Codex CLI on `PATH` or at `~/.codex/packages/standalone/current/codex`. The official installer is at `https://chatgpt.com/codex/install.sh`. If the ChatGPT desktop app is installed, symlink its bundled binary:
+With the normal desktop-app setup the plugin handles this automatically (see step 1).
+This step is only for setups without the ChatGPT desktop app, e.g. CLI-only environments: `codex app-server daemon start` requires a Codex CLI on `PATH` or at `~/.codex/packages/standalone/current/codex`. The official installer is at `https://chatgpt.com/codex/install.sh`. If the ChatGPT desktop app is installed, symlink its bundled binary:
 
 ```bash
 node scripts/setup-daemon.mjs
@@ -147,22 +160,6 @@ node scripts/setup-daemon.mjs
 The daemon and the desktop app share the `~/.codex/sessions` store: conversations started from the daemon appear in the desktop app and vice versa. Stop the daemon with `codex app-server daemon stop`.
 
 > Note: the standalone daemon and the desktop app are separate processes. The daemon can list/read all sessions (including ones the desktop app is using), but it does not see the desktop app's in-memory real-time state (thinking…).
-
-## Status colors
-
-All breathing states share the same 2.4 s cycle (dim → bright → dim). Each breathing state has a bright base color and a dark flash color:
-
-| Status | Base (bright) | Flash (dark) | Notes |
-| --- | --- | --- | --- |
-| Thinking… | #94C8F8 (148,200,248) | #4A7DA8 | background breathe + dark-blue ring pulse |
-| Unread | #A4E898 (164,232,152) | #7FBF74 | reads the desktop app's real unread state; breathing |
-| Waiting for approval | #F6D2BC (246,210,188) | #D99B74 | breathing |
-| Error | #E86860 (232,104,96) | #B04038 | breathing |
-| Idle | #E4E4E4 (228,228,228) | — | static |
-| Offline | #C9C9C9 | — | static |
-
-- The thinking animation is inspired by the Cortana animation on Windows Phone.
-- The unread state reads the desktop app's own persisted data (`~/.codex/.codex-global-state.json` → `electron-persisted-atom-state.unread-thread-ids-by-host-v1`) — the same source as the official UI's unread badge; it clears once the chat is opened.
 
 ## License
 

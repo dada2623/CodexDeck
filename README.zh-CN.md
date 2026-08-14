@@ -32,7 +32,7 @@
 
 1. 安装预打包插件（零安装）或从源码构建——见[安装](#安装)。
 2. 保持 Codex 桌面端运行并已登录。
-3. 把桌面端「设置 → 键盘快捷键」对齐：⌘⌥A 批准、⌘⌥R 拒绝、⌘⌥S 发送、⌘⌥E 循环推理等级。（或按自己喜爱的快捷键修改）
+3. 把桌面端「设置 → 键盘快捷键」设置为：⌘⌥A 批准、⌘⌥R 拒绝、⌘⌥S 发送、⌘⌥E 循环推理等级。（或按自己喜爱的快捷键修改 Profile）
 4. 完成——5 个对话键实时显示最近的对话与状态；命令键处理批准/拒绝/发送/新对话；PTT 键触发你自己的按住说话服务。
 
 ## 这是什么
@@ -89,6 +89,21 @@ Profile Page 1：
 | 对话切换 | 通过模拟快捷键对应桌面端的对话切换 |
 | 切换页面 | Stream Deck 内置动作，在 Profile 之间循环切换 |
 
+## 状态颜色
+
+所有呼吸状态共用同一个 2.4 秒周期（暗 → 亮 → 暗）。每个呼吸状态都有亮色基准色和暗色闪烁色：
+
+| 状态 | 基准色（亮） | 闪烁色（暗） | 说明 |
+| --- | --- | --- | --- |
+| 思考中… | #94C8F8（148,200,248） | #4A7DA8 | 背景呼吸 + 深蓝圆环脉冲 |
+| 未读 | #A4E898（164,232,152） | #7FBF74 | 读取桌面端真实未读状态；呼吸 |
+| 等待确认 | #F6D2BC（246,210,188） | #D99B74 | 呼吸 |
+| 错误 | #E86860（232,104,96） | #B04038 | 呼吸 |
+| 空闲 | #E4E4E4（228,228,228） | — | 静态 |
+| 未连接 | #C9C9C9 | — | 静态 |
+
+- 思考中的动画灵感来自于 Windows Phone 系统的 Cortana 动画
+- 未读状态直接读取桌面端自己持久化的数据（`~/.codex/.codex-global-state.json` → `electron-persisted-atom-state.unread-thread-ids-by-host-v1`），与官方 UI 的未读角标同一来源，打开对话后即清除。
 
 ## 图标说明
 
@@ -134,13 +149,10 @@ npx streamdeck link .
 
 **语言版本。** 仓库根目录提供两个发行包：`com.codexdeck.streamDeckPlugin`（中文键面——最新对话 / 思考中… / 未读 / 等待确认 / …）和 `com.codexdeck-en.streamDeckPlugin`（英文键面——"Session N" / "Thinking…" / "Unread" / "Waiting" / …）。需要重新构建某个版本：`CODEXDECK_LANG=zh|en npm run dist`，再用 `npx streamdeck pack` 打包。
 
-### 方式三：手动导入 profile
+### 方式三：首次使用——app-server daemon（通常无需操作）
 
-直接用 Stream Deck 软件导入 [profiles/Codex Micro.streamDeckProfile](profiles/Codex%20Micro.streamDeckProfile)，再手动从「Codex Deck」类别把动作拖到对应按键（如果布局没有自动套用到你的设备）。
-
-### 方式四：首次使用——app-server daemon（通常无需操作）
-
-正常使用桌面端的场景下，插件会自动处理（见方式一）。本节只适用于「没有安装 ChatGPT 桌面端、仅用 CLI」的环境：`codex app-server daemon start` 要求 `PATH` 或 `~/.codex/packages/standalone/current/codex` 存在 Codex CLI。
+正常使用桌面端的场景下，插件会自动处理（见方式一）。
+本节只适用于「没有安装 ChatGPT 桌面端、仅用 CLI」的环境：`codex app-server daemon start` 要求 `PATH` 或 `~/.codex/packages/standalone/current/codex` 存在 Codex CLI。
 官方安装脚本在 `https://chatgpt.com/codex/install.sh`
 如果 ChatGPT 桌面版已安装，可以直接把其捆绑的 codex 软链到该路径：
 
@@ -152,22 +164,6 @@ daemon 与桌面版共享 `~/.codex/sessions` 会话库：Standalone 里跑的�
 停止 daemon：`codex app-server daemon stop`。
 
 > 注意：独立 daemon 与桌面版是两个进程。daemon 能列出/读取全部会话（含桌面版正在用的），但桌面版进程内存中的实时状态（思考中）不会同步给 daemon。
-
-## 状态颜色
-
-所有呼吸状态共用同一个 2.4 秒周期（暗 → 亮 → 暗）。每个呼吸状态都有亮色基准色和暗色闪烁色：
-
-| 状态 | 基准色（亮） | 闪烁色（暗） | 说明 |
-| --- | --- | --- | --- |
-| 思考中… | #94C8F8（148,200,248） | #4A7DA8 | 背景呼吸 + 深蓝圆环脉冲 |
-| 未读 | #A4E898（164,232,152） | #7FBF74 | 读取桌面端真实未读状态；呼吸 |
-| 等待确认 | #F6D2BC（246,210,188） | #D99B74 | 呼吸 |
-| 错误 | #E86860（232,104,96） | #B04038 | 呼吸 |
-| 空闲 | #E4E4E4（228,228,228） | — | 静态 |
-| 未连接 | #C9C9C9 | — | 静态 |
-
-- 思考中的动画灵感来自于 Windows Phone 系统的 Cortana 动画
-- 未读状态直接读取桌面端自己持久化的数据（`~/.codex/.codex-global-state.json` → `electron-persisted-atom-state.unread-thread-ids-by-host-v1`），与官方 UI 的未读角标同一来源，打开对话后即清除。
 
 ## 协议
 
