@@ -34,14 +34,20 @@ jobs:
         run: CODEXDECK_LANG=zh npm run dist
 
       - name: Package Chinese variant
-        run: zip -r com.codexdeck.streamDeckPlugin com.codexdeck.sdPlugin -x '*.DS_Store'
+        run: |
+          # rm first: the packages are tracked in the repo, and zip appends
+          # to an existing archive instead of rebuilding it.
+          rm -f com.codexdeck.streamDeckPlugin
+          zip -r com.codexdeck.streamDeckPlugin com.codexdeck.sdPlugin -x '*.DS_Store'
 
       # English key faces -> com.codexdeck-en.streamDeckPlugin
       - name: Build English variant
         run: CODEXDECK_LANG=en npm run dist
 
       - name: Package English variant
-        run: zip -r com.codexdeck-en.streamDeckPlugin com.codexdeck.sdPlugin -x '*.DS_Store'
+        run: |
+          rm -f com.codexdeck-en.streamDeckPlugin
+          zip -r com.codexdeck-en.streamDeckPlugin com.codexdeck.sdPlugin -x '*.DS_Store'
 
       - name: Create GitHub Release
         env:
