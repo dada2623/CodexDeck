@@ -1,0 +1,72 @@
+name: Release
+
+# Trigger: push any tag starting with "v" (e.g. v1.0.0) → build both language
+# variants and publish a GitHub Release with the installable packages.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate icons
+        run: npm run icons
+
+      # Chinese key faces -> com.codexdeck.streamDeckPlugin
+      - name: Build Chinese variant
+        run: CODEXDECK_LANG=zh npm run dist
+
+      - name: Package Chinese variant
+        run: zip -r com.codexdeck.streamDeckPlugin com.codexdeck.sdPlugin -x '*.DS_Store'
+
+      # English key faces -> com.codexdeck-en.streamDeckPlugin
+      - name: Build English variant
+        run: CODEXDECK_LANG=en npm run dist
+
+      - name: Package English variant
+        run: zip -r com.codexdeck-en.streamDeckPlugin com.codexdeck.sdPlugin -x '*.DS_Store'
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat > RELEASE_NOTES.md <<'EOF'
+          ## CodexDeck $GITHUB_REF_NAME
+
+          Codex Micro — the agent-control keyboard for Codex — recreated on a 15-key Stream Deck (5×3): live agent status, approve/reject, send, new chat, reasoning level, push-to-talk.
+
+          ### Install
+
+          1. Download the package for your preferred key-face language.
+          2. Double-click it (or drag `com.codexdeck.sdPlugin` from the archive into the Stream Deck app window).
+          3. Grant the requested permissions on first use; keep the ChatGPT / Codex desktop app running and logged in.
+
+          | Asset | Key faces | Notes |
+          | --- | --- | --- |
+          | `com.codexdeck.streamDeckPlugin` | Chinese (最新对话 / 思考中… / …) | Default variant |
+          | `com.codexdeck-en.streamDeckPlugin` | English (Session N / Thinking… / …) | English variant |
+
+          Zero install: no Node.js, npm, clang or terminal needed. Requires Stream Deck software 7.1+ and a 15-key Stream Deck (MK.2 / Classic). See the [README](https://github.com/dada2623/CodexDeck#readme) for details.
+          EOF
+          gh release create "$GITHUB_REF_NAME" \
+            com.codexdeck.streamDeckPlugin \
+            com.codexdeck-en.streamDeckPlugin \
+            --title "CodexDeck $GITHUB_REF_NAME" \
+            --notes-file RELEASE_NOTES.md
