@@ -54,9 +54,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           cat > RELEASE_NOTES.md <<'EOF'
-          ## CodexDeck $GITHUB_REF_NAME
-
-          Codex Micro — the agent-control keyboard for Codex — recreated on a 15-key Stream Deck (5×3): live agent status, approve/reject, send, new chat, reasoning level, push-to-talk.
+          ## CodexDeck __TAG__
 
           ### Install
 
@@ -68,11 +66,9 @@ jobs:
           | --- | --- | --- |
           | `com.codexdeck.streamDeckPlugin` | Chinese (最新对话 / 思考中… / …) | Default variant |
           | `com.codexdeck-en.streamDeckPlugin` | English (Session N / Thinking… / …) | English variant |
-
-          Zero install: no Node.js, npm, clang or terminal needed. Requires Stream Deck software 7.1+ and a 15-key Stream Deck (MK.2 / Classic). See the [README](https://github.com/dada2623/CodexDeck#readme) for details.
           EOF
-          # The heredoc is quoted ('EOF'), so interpolate the tag explicitly.
-          sed -i "s/\$GITHUB_REF_NAME/$GITHUB_REF_NAME/g" RELEASE_NOTES.md
+          # The heredoc is quoted ('EOF'), so interpolate the tag via placeholder.
+          sed -i "s/__TAG__/$GITHUB_REF_NAME/g" RELEASE_NOTES.md
           gh release create "$GITHUB_REF_NAME" \
             com.codexdeck.streamDeckPlugin \
             com.codexdeck-en.streamDeckPlugin \

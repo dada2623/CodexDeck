@@ -69,7 +69,7 @@ Profile Page 1:
 - **Reasoning** — plugin + shortcut driven: a single press cycles the reasoning effort and shows the current level (e.g. High).
 - **ChatGPT key** — opens the desktop app; long-press quits it.
 - **Other command keys** — trigger the native keyboard shortcuts (Accept / Reject / Send / New Chat).
-- **PTT** — sends the configured shortcut (default: left ⌥ + Space) to your own third-party push-to-talk service (e.g. WeChat voice input).
+- **PTT** — sends the configured shortcut (default: left ⌥ + Space) to your own third-party push-to-talk service (e.g. WeChat voice input). Currently only supported on **arm64 macOS**.
 - **Previous Session / Next Session** — switch between chats in the desktop app.
 
 > Hotkeys set in this profile differ from ChatGPT app’s default shortcuts. To use the plugin’s bundled profile, adjust the default action hotkeys following the layout diagram.
@@ -114,7 +114,7 @@ All key glyphs come from the **Fluent UI System Icons** Stream Deck icon pack by
 
 ## Requirements
 
-- Stream Deck software **7.1+** (SDK v3) and a **15-key Stream Deck** (MK.2 / Classic); other Stream Deck models may work too — contributions welcome
+- Stream Deck software **7.1+** (SDK v3) and a **15-key Stream Deck** (MK.2); other Stream Deck models may work too — contributions welcome
 - A logged-in **ChatGPT desktop app** — the plugin starts the app-server automatically with its bundled `codex` binary; **no separate CLI install needed**
 - Currently only tested on **macOS 26.6 (25G72)**
 - Permissions on first use: System Events (reasoning cycling / AppleScript PTT fallback) and Input Monitoring (PTT helper)
