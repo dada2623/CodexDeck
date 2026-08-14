@@ -49,22 +49,24 @@ The result: five agent keys show your most recent Codex threads (active ones fir
 
 ## Key layout (bundled profile)
 
-Page 1 of the profile ("Codex Deck"):
+Profile Page 1:
 
-```
-┌──────────┬──────────┬──────────┬──────────┬──────────┐
-│ 最新对话 1 │ 最新对话 2 │ 最新对话 3 │ 最新对话 4 │ 最新对话 5 │   live session keys (plugin)
-├──────────┼──────────┼──────────┼──────────┼──────────┤
-│ Accept   │ Reject   │ ChatGPT   │ New Chat │ Reasoning│   ⌘⌥A / ⌘⌥R / open ChatGPT app / ⌘N / ⌘⌥E
-├──────────┼──────────┼──────────┼──────────┼──────────┤
-│ PTT      │ Send     │ Profile  │ Previous Session  │ Next Session  │   ⌥Space / ⌘⌥S / next profile / ⇧⌘[ / ⇧⌘]
-└──────────┴──────────┴──────────┴──────────┴──────────┘
-```
+| ① | ② | ③ | ④ | ⑤ |
+| --- | --- | --- | --- | --- |
+| 最新对话 1 | 最新对话 2 | 最新对话 3 | 最新对话 4 | 最新对话 5 |
+| Accept | Reject | ChatGPT | New Chat | Reasoning |
+| PTT | Send | Profile | Previous Session | Next Session |
+
+| Row | Action |
+| --- | --- |
+| 1 — session keys | live session keys (plugin) |
+| 2 — command keys | ⌘⌥A / ⌘⌥R / open ChatGPT app / ⌘N / ⌘⌥E |
+| 3 — control keys | ⌥Space / ⌘⌥S / next profile / ⇧⌘[ / ⇧⌘] |
 
 ## Key descriptions
 
 - **Session keys (row 1)** — show your five most recent Codex threads with live status (thinking… / unread / waiting for approval / error / idle / offline). Press one to jump to that thread in the desktop app and make it the target of the command keys.
-- **Reasoning** — plugin + shortcut driven: a single press cycles the reasoning effort and shows the current level (e.g. 高).
+- **Reasoning** — plugin + shortcut driven: a single press cycles the reasoning effort and shows the current level (e.g. High).
 - **ChatGPT key** — opens the desktop app; long-press quits it.
 - **Other command keys** — trigger the native keyboard shortcuts (Accept / Reject / Send / New Chat).
 - **PTT** — sends the configured shortcut (default: left ⌥ + Space) to your own third-party push-to-talk service (e.g. WeChat voice input).
