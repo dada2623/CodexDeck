@@ -41,13 +41,15 @@ This project rebuilds that core experience on a regular Stream Deck, based entir
 
 ![Preview](assets/preview/session-preview.gif)
 
+![Hardware preview](assets/preview/Hardware-preview.jpg)
+
 The result: five agent keys show your most recent Codex threads (active ones first) with live status — thinking… / unread / waiting for approval / error / idle / offline; a row of command keys approves or declines permission requests, sends, starts a new chat and cycles the reasoning level. The plugin renders the key faces itself, with breathing/flashing animations close to the real device.
 
 > ⚠️ This is an independent, unofficial re-implementation of a hardware product. It is not affiliated with OpenAI or Work Louder.
 
 ## Key layout (bundled profile)
 
-Page 1 of the profile ("Codex 控制台"):
+Page 1 of the profile ("Codex Deck"):
 
 ```
 ┌──────────┬──────────┬──────────┬──────────┬──────────┐
@@ -55,7 +57,7 @@ Page 1 of the profile ("Codex 控制台"):
 ├──────────┼──────────┼──────────┼──────────┼──────────┤
 │ Accept   │ Reject   │ ChatGPT   │ New Chat │ Reasoning│   ⌘⌥A / ⌘⌥R / open ChatGPT app / ⌘N / ⌘⌥E
 ├──────────┼──────────┼──────────┼──────────┼──────────┤
-│ PTT      │ Send     │ 切换页面  │ 上个对话  │ 下个对话  │   ⌥Space / ⌘⌥S / next profile / ⇧⌘[ / ⇧⌘]
+│ PTT      │ Send     │ Profile  │ Previous Session  │ Next Session  │   ⌥Space / ⌘⌥S / next profile / ⇧⌘[ / ⇧⌘]
 └──────────┴──────────┴──────────┴──────────┴──────────┘
 ```
 
@@ -66,22 +68,23 @@ Page 1 of the profile ("Codex 控制台"):
 - **ChatGPT key** — opens the desktop app; long-press quits it.
 - **Other command keys** — trigger the native keyboard shortcuts (Accept / Reject / Send / New Chat).
 - **PTT** — sends the configured shortcut (default: left ⌥ + Space) to your own third-party push-to-talk service (e.g. WeChat voice input).
-- **上个对话 / 下个对话** — switch between chats in the desktop app.
+- **Previous Session / Next Session** — switch between chats in the desktop app.
 
-> The shortcuts bound in the profile are not the ChatGPT app's defaults. To use the bundled profile, adjust the app's action shortcuts as shown in the layout diagram, or rebind the shortcuts on each key in the Stream Deck software.
+> Hotkeys set in this profile differ from ChatGPT app’s default shortcuts. To use the plugin’s bundled profile, adjust the default action hotkeys following the layout diagram.
+(Or modify the profile directly within the official Stream Deck app to align with your existing hotkeys.)
 
 ## Features
 
-| Codex Micro feature | Implementation | Status |
-| --- | --- | --- |
-| Agent keys with live status | 5 keys poll `thread/list`; the key face reflects status (thinking… / unread / waiting for approval / error / idle / offline); pressing one selects it as the command-key target and jumps to it in the desktop app (`codex://threads/<id>`) | ✅ |
-| Accept / Reject | Triggers approve / decline via simulated shortcuts | ✅ |
-| Send | Sends the text in the input box via a simulated shortcut | ✅ |
-| New Chat | Creates a new chat via a simulated shortcut | ✅ |
-| Reasoning cycling | The plugin reads the desktop app's persisted `reasoning_effort` (`~/.codex/state_5.sqlite`) and cycles it through the app's own shortcut | ✅ |
-| Push-to-talk | PTT key as trigger — which PTT service and shortcut to use are up to you | ✅ |
-| Chat switching | Switches chats via simulated shortcuts matching the desktop app | ✅ |
-| Profile switching | Stream Deck built-in action, cycles between profiles | ✅ |
+| Codex Micro feature | Implementation |
+| --- | --- |
+| Agent keys with live status | 5 keys poll `thread/list`; the key face reflects status (thinking… / unread / waiting for approval / error / idle / offline); pressing one selects it as the command-key target and jumps to it in the desktop app (`codex://threads/<id>`) |
+| Accept / Reject | Triggers approve / decline via simulated shortcuts |
+| Send | Sends the text in the input box via a simulated shortcut |
+| New Chat | Creates a new chat via a simulated shortcut |
+| Reasoning cycling | The plugin reads the desktop app's persisted `reasoning_effort` (`~/.codex/state_5.sqlite`) and cycles it through the app's own shortcut |
+| Push-to-talk | PTT key as trigger — which PTT service and shortcut to use are up to you |
+| Chat switching | Switches chats via simulated shortcuts matching the desktop app |
+| Profile switching | Stream Deck built-in action, cycles between profiles |
 
 ## Icons
 
@@ -101,7 +104,7 @@ All key glyphs come from the **Fluent UI System Icons** Stream Deck icon pack by
 
 ## Installation
 
-### 1. Zero-install for end users (recommended)
+### 1. Zero-install for users (recommended)
 
 With only the two official apps installed — the Stream Deck software and the ChatGPT/Codex desktop app — **no Node.js, npm, clang, standalone Codex CLI or terminal is required**:
 
