@@ -116,7 +116,7 @@ All key glyphs come from the **Fluent UI System Icons** Stream Deck icon pack by
 
 - Stream Deck software **7.1+** (SDK v3) and a **15-key Stream Deck** (MK.2); other Stream Deck models may work too — contributions welcome
 - A logged-in **ChatGPT desktop app** — the plugin starts the app-server automatically with its bundled `codex` binary; **no separate CLI install needed**
-- Currently only tested on **macOS 26.6 (25G72)**
+- Currently only tested on **macOS 26.6 (25G72)**, **arm64**
 - Permissions on first use: System Events (reasoning cycling / AppleScript PTT fallback) and Input Monitoring (PTT helper)
 - Only when building from source: **Node.js 24+** and **clang** (macOS dev tools). The PTT helper ships prebuilt for Apple Silicon (arm64); Intel Macs compile it themselves
 

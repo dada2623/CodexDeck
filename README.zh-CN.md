@@ -117,7 +117,7 @@ Profile Page 1：
 
 - Stream Deck 软件 **7.1+**（SDK v3）与 **15 键 Stream Deck**（MK.2），理论上对其他型号的 Steam Deck 也可启用，欢迎开发者自行尝试
 - 已登录的 **ChatGPT 桌面端**，插件会自动用它拉起 app-server，**无需单独安装 CLI**
-- 当前只测试过 macOS 26.6 (25G72) 环境
+- 当前只测试过 **arm64** 版本的 **macOS 26.6 (25G72)** 环境
 - 首次使用授权：System Events（推理循环 / AppleScript PTT 兜底）与输入监控（PTT 助手）
 - 仅从源码构建需要：**Node.js 24+** 与 **clang**（macOS 开发者工具）；PTT 助手为 Apple Silicon (arm64) 预编译，Intel 用户需自行编译
 
