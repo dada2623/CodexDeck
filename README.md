@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-> Recreate the core of OpenAI's **Codex Micro** — the agent-control keyboard for Codex — on an off-the-shelf **15-key Stream Deck** (5×3): live agent status, approve/reject, send, new chat, reasoning level, push-to-talk and profile switching.
+> Recreate the core of OpenAI's **Codex Micro** — the agent-control keyboard for Codex — on an off-the-shelf **15-key Stream Deck** (5×3): live agent status, approve/reject, send, new chat, reasoning level, push-to-talk.
 
 <div align="center">
 
