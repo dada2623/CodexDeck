@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+*.log
+
+# Dependencies
+node_modules/
+
+# Local exploration / draft assets (not part of the build), except the two
+# icons the profile generator reads from this folder.
+extracted-icons/*
+!extracted-icons/chatgpt-key-144.png
+!extracted-icons/profile-switch-144.png
+fluent-candidates/
+
+# Local plugin run logs
+logs/
+
+# Test / personal profile — not for distribution
+profiles/86DF0DAE-F899-49F0-B506-049BD7A784C8.sdProfile/
+
+# NOTE: com.codexdeck.sdPlugin (build output) and com.codexdeck.streamDeckPlugin
+# are intentionally NOT ignored — the README's zero-install flow relies on them
+# being present in the repository so a fresh clone is usable out of the box.

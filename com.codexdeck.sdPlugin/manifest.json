@@ -1,0 +1,152 @@
+{
+	"$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
+	"Name": "Codex Deck",
+	"Version": "1.0.0.0",
+	"Author": "One_SONY",
+	"UUID": "com.codexdeck",
+	"Category": "Codex Deck",
+	"CategoryIcon": "imgs/plugin/category-icon",
+	"CodePath": "bin/plugin.js",
+	"Description": "Replicates the OpenAI Codex Micro on a Stream Deck: live agent status keys, accept/reject/send, new chat, reasoning level and push-to-talk.",
+	"Icon": "imgs/plugin/marketplace",
+	"SDKVersion": 3,
+	"Software": {
+		"MinimumVersion": "7.1"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "12"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "24",
+		"Debug": "enabled"
+	},
+	"Actions": [
+		{
+			"Name": "Agent Key",
+			"UUID": "com.codexdeck.agent",
+			"Icon": "imgs/actions/agent/icon",
+			"Tooltip": "Shows one Codex thread's live status. Press to select it as the target of Accept / Reject / Send.",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/agent/key",
+					"Title": "Agent",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Accept",
+			"UUID": "com.codexdeck.accept",
+			"Icon": "imgs/actions/accept/icon",
+			"Tooltip": "Accepts the pending approval (command / file change) of the selected thread.",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/accept/key",
+					"Title": "Accept",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Reject",
+			"UUID": "com.codexdeck.reject",
+			"Icon": "imgs/actions/reject/icon",
+			"Tooltip": "Declines the pending approval (command / file change) of the selected thread.",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/reject/key",
+					"Title": "Reject",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Send",
+			"UUID": "com.codexdeck.send",
+			"Icon": "imgs/actions/send/icon",
+			"Tooltip": "Sends a prompt to the selected thread (default: continue).",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/send/key",
+					"Title": "Send",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "New Chat",
+			"UUID": "com.codexdeck.newchat",
+			"Icon": "imgs/actions/newchat/icon",
+			"Tooltip": "Starts a brand new Codex thread.",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/newchat/key",
+					"Title": "New Chat",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Reasoning",
+			"UUID": "com.codexdeck.reasoning",
+			"Icon": "imgs/actions/reasoning/icon",
+			"Tooltip": "Cycles the reasoning effort (low / medium / high) for the next turn.",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/reasoning/key",
+					"Title": "",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Push-to-Talk",
+			"UUID": "com.codexdeck.ptt",
+			"Icon": "imgs/actions/ptt/icon",
+			"Tooltip": "Push-to-talk voice input (integration pending).",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/ptt/key",
+					"Title": "",
+					"TitleAlignment": "middle"
+				}
+			]
+		}
+	],
+	"Profiles": [
+		{
+			"Name": "profiles/codex-micro",
+			"DeviceType": 0,
+			"AutoInstall": true,
+			"DontAutoSwitchWhenInstalled": false
+		}
+	]
+}

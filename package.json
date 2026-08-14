@@ -1,0 +1,31 @@
+{
+  "name": "codex-micro-deck",
+  "version": "1.0.0",
+  "description": "Stream Deck plugin that replicates the OpenAI Codex Micro hardware: agent status lights, command keys, page navigation and push-to-talk.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "icons": "node scripts/make-icons.mjs",
+    "profile": "node scripts/generate-profile.mjs",
+    "dist": "npm run build && npm run profile"
+  },
+  "devDependencies": {
+    "@elgato/cli": "^1.7.4",
+    "@rollup/plugin-commonjs": "^29.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@tsconfig/node20": "^20.1.9",
+    "@types/node": "^26.1.2",
+    "rollup": "^4.62.4",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@elgato/streamdeck": "^2.1.0",
+    "ws": "^8.21.2"
+  }
+}
